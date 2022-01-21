@@ -26,7 +26,8 @@ var keycloak = new Keycloak({
 var initOptions = {
     responseMode: 'fragment',
     flow: 'standard',
-    onload: 'check-sso'
+    onload: 'check-sso',
+    pkceMethod: 'S256'
 };
 
 keycloak.init(initOptions).then(function(authenticated) {
