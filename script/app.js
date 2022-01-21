@@ -4,15 +4,18 @@ if(getParam("url") != null && getParam("realm") != null && getParam("client") !=
     var url = getParam("url");
     var realm = getParam("realm");
     var client = getParam("client");
+    var scopes = getParam("scopes");
     saveParameters();
 }else{
     var url = window.localStorage.getItem("poit.url");
     var realm = window.localStorage.getItem("poit.realm");
     var client = window.localStorage.getItem("poit.client");
+    var scopes = window.localStorage.getItem("poit.scopes");
 }
 $("#url").val(url);
 $("#realm").val(realm);
 $("#client").val(client);
+$("#scopes").val(scopes);
 
 var keycloak = new Keycloak({
     url: url,
@@ -40,12 +43,14 @@ function saveParameters(){
     window.localStorage.setItem("poit.url", $("#url").val());
     window.localStorage.setItem("poit.realm", $("#realm").val());
     window.localStorage.setItem("poit.client", $("#client").val());
+    window.localStorage.setItem("poit.scopes", $("#scopes").val());
 }
 
 function initKeycloak(){
     window.localStorage.setItem("poit.url", $("#url").val());
     window.localStorage.setItem("poit.realm", $("#realm").val());
     window.localStorage.setItem("poit.client", $("#client").val());
+    window.localStorage.setItem("poit.scopes", $("#scopes").val());
     location.reload();
 }
 
