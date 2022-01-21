@@ -1,11 +1,18 @@
 //var keycloak = Keycloak();
 
-var url = window.localStorage.getItem("poit.url");
-var realm = window.localStorage.getItem("poit.realm");
-var client = window.localStorage.getItem("poit.client");
-$("#url").val(url)
-$("#realm").val(realm)
-$("#client").val(client)
+if(getParam("url") != null && getParam("realm") != null && getParam("client") != null){
+    var url = getParam("url");
+    var realm = getParam("realm");
+    var client = getParam("client");
+    saveParameters();
+}else{
+    var url = window.localStorage.getItem("poit.url");
+    var realm = window.localStorage.getItem("poit.realm");
+    var client = window.localStorage.getItem("poit.client");
+}
+$("#url").val(url);
+$("#realm").val(realm);
+$("#client").val(client);
 
 var keycloak = new Keycloak({
     url: url,
@@ -28,6 +35,12 @@ keycloak.init(initOptions).then(function(authenticated) {
  keycloak.onAuthSuccess = function () {
     event('Auth Success');
 };
+
+function saveParameters(){
+    window.localStorage.setItem("poit.url", $("#url").val());
+    window.localStorage.setItem("poit.realm", $("#realm").val());
+    window.localStorage.setItem("poit.client", $("#client").val());
+}
 
 function initKeycloak(){
     window.localStorage.setItem("poit.url", $("#url").val());
@@ -152,4 +165,8 @@ function setTokens(authenticated){
      document.getElementById("login").style.display = "none";
      
  }
+}
+
+function getParam(param){
+    return new URLSearchParams(window.location.search).get(param);
 }
