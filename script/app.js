@@ -176,3 +176,15 @@ function setTokens(authenticated){
 function getParam(param){
     return new URLSearchParams(window.location.search).get(param);
 }
+
+function copy() {
+    var input = "https://playground.please-open.it?url="+encodeURI($("#url").val())+"&realm="+encodeURI($("#realm").val())+"&client="+encodeURI($("#client").val())+"&scopes="+encodeURI($("#scopes").val());
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(input).then(() => {
+          $("#copy").html("COPIED !");
+        }, (err) => {
+            $("#copy").html("ERROR !");
+        });
+      }
+      $("#copy").html("ERROR !");
+  }
